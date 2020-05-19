@@ -1,0 +1,10 @@
+{
+  "liveSassCompile.settings.formats": [
+    {
+      "format": "compressed",
+      "extensionName": ".min.css",
+      "savePath": "/app/static/css/"
+    }
+  ],
+  "python.pythonPath": "env/bin/python"
+}
