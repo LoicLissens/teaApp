@@ -1,0 +1,54 @@
+{% extends "layout.html" %} {% block content %}
+<section class="section">
+  <div class="container is-fluid">
+    <h1 class="title is-1 is-centered">{{title}}</h1>
+    <div class="columns">
+      <div class="column is-6">
+        <form method="post" novalidate>
+          {{ form.hidden_tag() }}
+          <div class="field">
+            {{ form.username.label(class='label') }}
+            <div class="control">
+              {{ form.username(class='input') }}
+            </div>
+            {% for error in form.username.errors%}
+            <span class="help is-danger">{{error}}</span>
+            {% endfor %}
+          </div>
+          <div class="field">
+            {{ form.password.label(class='label') }}
+            <div class="control">
+              {{ form.password(class="input") }}
+            </div>
+            {% for error in form.password.errors%}
+            <span class="help is-danger">{{error}}</span>
+            {% endfor %}
+          </div>
+          <div class="field">
+            <div class="control">
+              <label class="checkbox">
+                {{form.remember_me}} Remember me
+              </label>
+            </div>
+          </div>
+          <div class="field">
+            <button class="button button-input is-info">
+              {{ form.submit() }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="columns">
+      <div class="column is-6">
+        <div class="new-user has-text-centered">
+          <div class="notification is-warning is-light">
+            <p>New User? <a href="{{ url_for('register') }}">Click to Register!</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

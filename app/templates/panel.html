@@ -1,0 +1,74 @@
+{% extends "layout.html" %} {% block content %} {% if current_user.admin %}
+<section class="section">
+  <div class="container">
+    <h1 class="title is-1">{{title}}</h1>
+    <div class="columns">
+      <!--FORM ADD TEA-->
+      <div class="column is-6">
+        <h3 class="subtitle is-3">Add tea</h3>
+        <form method="post" action="{{url_for('add_tea') }}" novalidate>
+          {{form_tea.hidden_tag()}}
+          <!--Tea name-->
+          <div class="field">
+            {{ form_tea.teaname.label(class='label') }}
+            <div class="control">
+              {{ form_tea.teaname(class='input') }}
+            </div>
+            {% for error in form_tea.teaname.errors%}
+            <span class="help is-danger">{{error}}</span>
+            {% endfor %}
+          </div>
+          <!--Tea description-->
+          <div class="field">
+            {{form_tea.description.label (class='label')}}
+            <div class="control">
+              {{form_tea.description (class='textarea', placeholder="description")}}
+            </div>
+          </div>
+          <!--Provenance of the tea-->
+          <div class="field">
+            {{form_tea.region.label(class='label')}}
+            <div class="control">
+              {{form_tea.region(class='input')}}
+            </div>
+          </div>
+          <!--Submit-->
+          <div class="field">
+            <button class="button button-input is-info">
+              {{ form_tea.submit() }}
+            </button>
+          </div>
+        </form>
+      </div>
+      <!--NEW FROM-->
+      <!--FORM ADD FUN FACT-->
+      <div class="column is-6">
+        <h3 class="subtitle is-3">Add fun fact</h3>
+        <form method="post" action="{{ url_for('add_fun_fact') }}" novalidate>
+          {{form_fun_fact.hidden_tag()}}
+          <!--Fun fact Fr-->
+          <div class="field">
+            {{form_fun_fact.fun_fact_fr.label(class='label')}}
+            <div class="control">
+              {{form_fun_fact.fun_fact_fr(class='textarea')}}
+            </div>
+          </div>
+          <!--Fun fact En-->
+          <div class="field">
+            {{form_fun_fact.fun_fact_en.label(class="label")}}
+            <div class="control">
+              {{form_fun_fact.fun_fact_en(class="textarea")}}
+            </div>
+          </div>
+          <!--Submit-->
+          <div class="field">
+            <button class="button button-input is-info">
+              {{form_fun_fact.submit()}}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+{%endif%} {% endblock %}

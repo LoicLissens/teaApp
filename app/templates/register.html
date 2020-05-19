@@ -1,0 +1,70 @@
+{% extends "layout.html" %} {% block content %}
+<section class="section">
+  <div class="container is-fluid">
+    <h1 class="title is-1 is-centered">{{title}}</h1>
+    <div class="columns">
+      <div class="column is-6">
+        <form method="post" novalidate>
+          <!-- honeypot-->
+          {{ form.hidden_tag() }}
+          <!-- username-->
+          <div class="field">
+            {{ form.username.label(class='label') }}
+            <div class="control">
+              {{ form.username(class='input') }}
+            </div>
+            {% for error in form.username.errors%}
+            <span class="help is-danger">{{error}}</span>
+            {% endfor %}
+          </div>
+          <!-- PASS ONE-->
+          <div class="field">
+            {{ form.password.label(class='label') }}
+            <div class="control">
+              {{ form.password(class='input') }}
+            </div>
+            {% for error in form.password.errors%}
+            <span class="help is-danger">{{error}}</span>
+            {% endfor %}
+          </div>
+          <!-- PASS TWO-->
+          <div class="field">
+            {{ form.password2.label(class='label') }}
+            <div class="control">
+              {{ form.password2(class='input') }}
+            </div>
+            {% for error in form.password2.errors%}
+            <span class="help is-danger">{{error}}</span>
+            {% endfor %}
+          </div>
+          <!--EMAIL-->
+          <div class="field">
+            {{ form.email.label(class='label') }}
+            <div class="control">
+              {{ form.email(class='input') }}
+            </div>
+            {% for error in form.email.errors%}
+            <span class="help is-danger">{{error}}</span>
+            {% endfor %}
+          </div>
+          <!--SUBMIT-->
+          <div class="field">
+            <button class="button button-input is-info">
+              {{ form.submit() }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="columns">
+      <div class="column is-6">
+        <div class="new-user has-text-centered">
+          <div class="notification is-warning is-light">
+            <p>Have an account ? <a href="{{ url_for('login') }}">Click to Login !</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

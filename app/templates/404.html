@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.min.css')}}" />
+    <title>404 error</title>
+  </head>
+  <body class="404">
+    <section class="section">
+      <div class="container">
+        <div class="tile is-ancestor">
+          <div class="tile is-8 is-vertical is-parent has-text-centered">
+            <div class="tile is-child box">
+              <img src="{{url_for('static', filename='img/404.svg')}}" alt="404 img" />
+              <a class="button is-large is-rounded" href="{{url_for('index')}}">Return home</a>
+              {%if current_user.is_anonymous%}
+              <a class="button is-large is-rounded" href="{{url_for('login')}}">Login</a>
+              {%else%}
+              <a class="button is-large is-rounded" href="{{url_for('account')}}">{{current_user.username}}</a>
+              {%endif%}
+            </div>
+          </div>
+          <div class="tile is-parent is-4">
+            <div class="tile is-child box">
+              <h3 class="title is-3">You may not know:</h3>
+              <p>
+                {{fun_fact}}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
