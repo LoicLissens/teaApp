@@ -26,6 +26,7 @@ class Tea(db.Model):
     name = db.Column(db.String(64), index=True, unique=True)
     description = db.Column(db.String(300))
     region_id = db.Column(db.Integer, db.ForeignKey('region.id'))
+    type_id = db.Column(db.Integer, db.ForeignKey('type.id'))
 
     def __repr__(self):
         return f'<Tea {self.name}>'
@@ -35,7 +36,20 @@ class Region(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64), index=True, unique=True)
     tea = db.relationship('Tea', backref='provenance', lazy='dynamic')
+
+    def __repr__(self):
+        return f'<Region {self.name}>'
+
+# Type of tea should have only 9 rows at the beginning: (Green tea, Balck, Matcha, infusion , Rooibos, white tea, oolong, MAté,Pu erh)
+
+
+class Type(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    type = db.Column(db.String(64), index=True, unique=True)
+    tea = db.relationship('Tea', backref='type of tea', lazy='dynamic')
 #! Backref and lazy
+
+
 @login.user_loader
 def load_user(id):
     return User.query.get(int(id))
