@@ -27,6 +27,8 @@ class Tea(db.Model):
     description = db.Column(db.String(300))
     region_id = db.Column(db.Integer, db.ForeignKey('region.id'))
     type_id = db.Column(db.Integer, db.ForeignKey('type.id'))
+    water_temp = db.Column(db.Integer)  # In Ceilcus
+    water_time = db.Column(db.Integer)  # In minutes
 
     def __repr__(self):
         return f'<Tea {self.name}>'

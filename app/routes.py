@@ -18,6 +18,7 @@ def index():
 # LOGIN ROUTE
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    fun_fact = FunFactJson.get_random_fact("en")
     if current_user.is_authenticated:
         return redirect(url_for('index'))
     form = LoginForm()
@@ -34,7 +35,7 @@ def login():
         if not next_page or url_parse(next_page).netloc != '':
             next_page = url_for('index')
         return redirect(next_page)
-    return render_template("login.html", form=form, title="Login")
+    return render_template("login.html", form=form, title="Login", fun_fact=fun_fact)
 
 # LOGOUT ROUTE
 @app.route('/logout')
@@ -45,6 +46,7 @@ def logout():
 # REGISTER ROUTE
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+    fun_fact = FunFactJson.get_random_fact("en")
     if current_user.is_authenticated:
         return redirect(url_for("index"))
     form = RegisterForm()
@@ -58,7 +60,7 @@ def register():
             f"You got succeful registered, your username is: {form.username.data} and your mail is:  {form.email.data}", 'is-success')
         return redirect(url_for("login"))
 
-    return render_template("register.html", form=form, title="Register")
+    return render_template("register.html", form=form, title="Register", fun_fact=fun_fact)
 
 # ROUTE FOR ACCOUNT PAGE
 @app.route('/account')
@@ -73,16 +75,18 @@ def collection():
 # ROUTE FOR ADMIN PANEL
 @app.route('/panel')
 def panel():
+    fun_fact = FunFactJson.get_random_fact("en")
     if not current_user.is_authenticated:
-        return render_template('404.html'), 404
+        return render_template('404.html', fun_fact=fun_fact), 404
     if not current_user.admin:
-        return render_template('404.html'), 404
+        return render_template('404.html', fun_fact=fun_fact), 404
     form_tea = AddTeaForm()
     form_fun_fact = AddFunFactForm()
     return render_template("panel.html", title="Admin panel", form_fun_fact=form_fun_fact, form_tea=form_tea)
 # ROUTE FOR ADDING FUN FACT
 @app.route('/addfunfact', methods=['POST', 'GET'])
 def add_fun_fact():
+    fun_fact = FunFactJson.get_random_fact("en")
     if not current_user.is_authenticated:
         return render_template('404.html', fun_fact=fun_fact), 404
     if not current_user.admin:
@@ -103,6 +107,7 @@ def add_fun_fact():
 # ROUTE FOR ADDING TEA
 @app.route('/addtea', methods=['POST', 'GET'])
 def add_tea():
+    fun_fact = FunFactJson.get_random_fact("en")
     if not current_user.is_authenticated:
         return render_template('404.html', fun_fact=fun_fact), 404
     if not current_user.admin:
