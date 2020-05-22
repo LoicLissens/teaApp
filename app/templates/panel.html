@@ -6,7 +6,7 @@
       <!--FORM ADD TEA-->
       <div class="column is-6">
         <h3 class="subtitle is-3">Add tea</h3>
-        <form method="post" action="{{url_for('add_tea') }}" novalidate>
+        <form method="POST" action="{{url_for('add_tea') }}" novalidate>
           {{form_tea.hidden_tag()}}
           <!--Tea name-->
           <div class="field">
@@ -29,7 +29,32 @@
           <div class="field">
             {{form_tea.region.label(class='label')}}
             <div class="control">
-              {{form_tea.region(class='input')}}
+              <div class="select">
+                {{form_tea.region}}
+              </div>
+            </div>
+          </div>
+          <!--Type of the tea-->
+          <div class="field">
+            {{form_tea.type.label(class='label')}}
+            <div class="control">
+              <div class="select">
+                {{form_tea.type}}
+              </div>
+            </div>
+          </div>
+          <!--Temperature of the water -->
+          <div class="field">
+            {{form_tea.water_temp.label(class='label')}}
+            <div class="control">
+              {{form_tea.water_temp(class='input')}}
+            </div>
+          </div>
+          <!--Time of infusion-->
+          <div class="field">
+            {{form_tea.water_time.label(class='label')}}
+            <div class="control">
+              {{form_tea.water_time(class='input')}}
             </div>
           </div>
           <!--Submit-->
@@ -44,7 +69,7 @@
       <!--FORM ADD FUN FACT-->
       <div class="column is-6">
         <h3 class="subtitle is-3">Add fun fact</h3>
-        <form method="post" action="{{ url_for('add_fun_fact') }}" novalidate>
+        <form method="POST" action="{{ url_for('add_fun_fact') }}" novalidate>
           {{form_fun_fact.hidden_tag()}}
           <!--Fun fact Fr-->
           <div class="field">

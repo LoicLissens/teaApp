@@ -6,4 +6,4 @@ const activeNavBar = () => {
     if (el.pathname == curUrl) el.classList.add("active-nav");
   });
 };
-document.addEvenetListener("load", activeNavBar());
+activeNavBar();

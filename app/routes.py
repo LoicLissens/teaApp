@@ -67,6 +67,8 @@ def register():
 @login_required  # Intercept the request and check if the user is logeed if not he is redirect to the login pagea
 def account():
     return render_template("account.html", title="Personal space")
+
+
 # ROUTE FOR COLLECTION OF TEA
 @app.route('/collection')
 def collection():
@@ -82,7 +84,10 @@ def panel():
         return render_template('404.html', fun_fact=fun_fact), 404
     form_tea = AddTeaForm()
     form_fun_fact = AddFunFactForm()
+
     return render_template("panel.html", title="Admin panel", form_fun_fact=form_fun_fact, form_tea=form_tea)
+
+
 # ROUTE FOR ADDING FUN FACT
 @app.route('/addfunfact', methods=['POST', 'GET'])
 def add_fun_fact():
@@ -115,14 +120,14 @@ def add_tea():
     form = AddTeaForm()
     if form.validate_on_submit():
         tea = Tea(name=form.teaname.data.lower(),
-                  description=form.description.data)
+                  description=form.description.data, region_id=form.region.data, type_id=form.type.data, water_temp=form.water_temp.data, water_time=form.water_time.data)
         db.session.add(tea)
         db.session.commit()
         flash(
-            f"Your Tea has been added. 'Nom:{form.teaname.data}' 'Description:{form.description.data}'", "is-success")
+            f"Your Tea has been added. 'Nom: {form.teaname.data}' 'Description: {form.description.data}' 'Id region: {form.region.data}' 'Id type: {form.type.data}' 'Temperature of water: {form.water_temp.data}' 'Time of infusion: {form.water_time.data}'", "is-success")
         return redirect(url_for('panel'))
     else:
-        return "This url accept only post request"
+        return f"This url accept only post request or there is an error: {form.errors}"
 # 404
 @app.errorhandler(404)
 def page_not_found(e):

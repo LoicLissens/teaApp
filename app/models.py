@@ -39,6 +39,21 @@ class Region(db.Model):
     name = db.Column(db.String(64), index=True, unique=True)
     tea = db.relationship('Tea', backref='provenance', lazy='dynamic')
 
+    def get_reg_list():
+        regions = Region.query.all()
+        list_region = []
+        for region in regions:
+            list_region.append({"id": region.id, "name": region.name})
+        return list_region
+
+    def reg_list_to_tupple():
+        list_region = Region.get_reg_list()
+        list_tuple_region = []
+        for region in list_region:
+            my_tuple = (str(region["id"]), region['name'])
+            list_tuple_region.append(my_tuple)
+        return list_tuple_region
+
     def __repr__(self):
         return f'<Region {self.name}>'
 
@@ -49,6 +64,25 @@ class Type(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     type = db.Column(db.String(64), index=True, unique=True)
     tea = db.relationship('Tea', backref='type of tea', lazy='dynamic')
+
+    def get_type_list():
+        types = Type.query.all()
+        list_types = []
+        for type in types:
+            list_types.append({"id": type.id, "type": type.type})
+        return list_types
+
+    def type_list_to_tupple():
+        list_types = Type.get_type_list()
+        list_tuple_types = []
+        for type in list_types:
+            my_tuple = (str(type["id"]), type['type'])
+            list_tuple_types.append(my_tuple)
+        return list_tuple_types
+
+    def __repr__(self):
+        return f'<Type {self.type}>'
+
 #! Backref and lazy
 
 

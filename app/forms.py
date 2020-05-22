@@ -1,9 +1,9 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField, SelectField
 from wtforms.validators import DataRequired, Email, ValidationError, EqualTo
 from wtforms.fields.html5 import EmailField
 import email_validator
-from app.models import User
+from app.models import User, Tea, Region, Type
 
 
 class LoginForm(FlaskForm):
@@ -38,8 +38,16 @@ class RegisterForm(FlaskForm):
 class AddTeaForm(FlaskForm):
     teaname = StringField('Tea name', validators=[DataRequired()])
     description = TextAreaField('Description')
-    region = StringField('Comes from')
+    region = SelectField('Comes from', choices=Region.reg_list_to_tupple())
+    type = SelectField('Type of tea', choices=Type.type_list_to_tupple())
+    water_temp = StringField("Temperature of water(Deg Celsius)")
+    water_time = StringField("Infusion time(Minutes)")
     submit = SubmitField('Add this tea !')
+
+    def validate_teaname(self, teaname):
+        name = Tea.query.filter_by(name=teaname.data.lower()).first()
+        if name is not None:
+            raise ValidationError('This tea is already registered ')
 
 
 class AddFunFactForm(FlaskForm):
